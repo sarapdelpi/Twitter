@@ -11,6 +11,10 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.PWA;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+
 /**
  * A sample Vaadin view class.
  * <p>
@@ -32,13 +36,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 @CssImport(value = "./styles/vaadin-text-field-styles.css", themeFor = "vaadin-text-field")
 public class MainView extends VerticalLayout {
 
-    /**
-     * Construct a new Vaadin view.
-     * <p>
-     * Build the initial UI state for the user accessing the application.
-     *
-     * @param service The message service. Automatically injected Spring managed bean.
-     */
+    private static final String API_URL = "http://localhost:8085";
+    HttpRequest request;
+    HttpClient cliente = HttpClient.newBuilder().build();
+    HttpResponse response;
     public MainView(@Autowired GreetService service) {
 
         // Use TextField for standard text input
