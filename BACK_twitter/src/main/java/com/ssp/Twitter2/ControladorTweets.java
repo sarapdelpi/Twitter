@@ -1,6 +1,7 @@
 package com.ssp.Twitter2;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +21,16 @@ public class ControladorTweets {
         listadoTweets=Leer.LecturaJSONsimple();
 
         this.listaTweets = listadoTweets;
+
+        return new ResponseEntity<ArrayList<Tweet>>(this.listaTweets, HttpStatus.CREATED);
+    }
+
+    @PostMapping(path = "/Tweets/Tweet",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ArrayList<Tweet>> nuevoUsuario(@RequestBody Tweet nuevotweet) {//Llama solo a Datos
+
+        this.listaTweets.add(nuevotweet);
 
         return new ResponseEntity<ArrayList<Tweet>>(this.listaTweets, HttpStatus.CREATED);
     }
